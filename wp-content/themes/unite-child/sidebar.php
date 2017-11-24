@@ -12,7 +12,13 @@
 			<aside id="search" class="widget widget_search">
 				<?php get_search_form(); ?>
 			</aside>
-
+			
+			<aside id="films" class="widget widget_search">
+				<h1 class="widget-title"><?php _e( 'Latest Films', 'unite' ); ?></h1>
+				<ul>
+					<?php echo do_shortcode('[films_latest]'); ?>
+				</ul>
+			</aside>
 			<aside id="archives" class="widget">
 				<h1 class="widget-title"><?php _e( 'Archives', 'unite' ); ?></h1>
 				<ul>

@@ -239,7 +239,7 @@ global $text_domain;
 $text_domain = 'unite';
 
 global $site_layout;
-$site_layout = array('side-pull-left' => esc_html__('Right Sidebar', 'dazzling'), 'side-pull-right' => esc_html__('Left Sidebar', 'dazzling'), 'no-sidebar' => esc_html__('No Sidebar', 'dazzling'), 'full-width' => esc_html__('Full Width', 'dazzling'));
+$site_layout = array('films-page' => esc_html__('Films Page', 'dazzling'), 'side-pull-left' => esc_html__('Right Sidebar', 'dazzling'), 'side-pull-right' => esc_html__('Left Sidebar', 'dazzling'), 'no-sidebar' => esc_html__('No Sidebar', 'dazzling'), 'full-width' => esc_html__('Full Width', 'dazzling'));
 
 // Option to switch between the_excerpt and the_content
 global $blog_layout;
@@ -449,3 +449,17 @@ function wpdocs_save_meta_box($post_id)
 }
 
 add_action('save_post', 'wpdocs_save_meta_box');
+
+function films_latest_five(){
+	$args	= array("post_type" => "films", "posts_per_page" => 5, 'order' => 'DESC');
+	$films	= new WP_Query($args);
+	
+	$options	= "";
+	while( $films->have_posts()):
+		$films->the_post();
+		$options .= '<li><a href="'.get_the_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></li>';
+	endwhile;
+	
+	return $options;
+}
+add_shortcode( 'films_latest', 'films_latest_five' );
